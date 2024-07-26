@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    ports:
+      - "11600:11600"
+    command: ["./system.exe", "mjai_client"]
