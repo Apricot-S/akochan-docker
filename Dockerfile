@@ -23,11 +23,17 @@ WORKDIR /opt
 
 USER ubuntu
 
+RUN mkdir build
 RUN git clone https://github.com/critter-mj/akochan.git
 RUN cd ./akochan/ai_src && \
     make -f Makefile_Linux && \
     cd ../ && \
-    make -f Makefile_Linux
+    sed -i -e 's/boost::asio::io_service/boost::asio::io_context/' mjai_client.hpp && \
+    sed -i -e 's/boost::asio::ip::address::from_string/boost::asio::ip::make_address/' mjai_client.cpp && \
+    sed -i -e 's/boost::asio::buffer_cast<const char \*>(buffer\.data())/static_cast<const char *>(buffer.data().data())/' mjai_client.cpp && \
+    make -f Makefile_Linux && \
+    cp libai.so system.exe setup_mjai.json ../build && \
+    cp -r params ../build
 
 FROM base AS final
 
@@ -45,6 +51,6 @@ WORKDIR /opt/akochan
 
 USER ubuntu
 
-COPY --from=build --chown=ubuntu /opt/akochan /opt/akochan
+COPY --from=build --chown=ubuntu /opt/build /opt/akochan
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/akochan

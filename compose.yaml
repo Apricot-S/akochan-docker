@@ -3,4 +3,4 @@ services:
     build: .
     ports:
       - "11600:11600"
-    command: ["./system.exe", "mjai_client"]
+    command: ["./system.exe", "mjai_client", "11600", "./setup_mjai.json"]
