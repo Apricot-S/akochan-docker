@@ -32,7 +32,7 @@ RUN cd ./akochan/ai_src && \
     sed -i -e 's/boost::asio::ip::address::from_string/boost::asio::ip::make_address/' mjai_client.cpp && \
     sed -i -e 's/boost::asio::buffer_cast<const char \*>(buffer\.data())/static_cast<const char *>(buffer.data().data())/' mjai_client.cpp && \
     make -f Makefile_Linux && \
-    cp libai.so system.exe setup_mjai.json ../build && \
+    cp libai.so system.exe setup_match.json setup_mjai.json ../build && \
     cp -r params ../build
 
 FROM base AS final
