@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ca-certificates \
         g++ \
         git-core \
-        libboost-all-dev \
+        libboost-system-dev \
         make
 
 RUN mkdir -p /opt && \
