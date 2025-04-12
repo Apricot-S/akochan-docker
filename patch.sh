@@ -11,9 +11,8 @@ sed -i -e 's/boost::asio::buffer_cast<const char \*>(buffer\.data())/static_cast
 # Change the connection destination from localhost to host.docker.internal
 sed -i -e '
 /TcpClient::TcpClient(const std::string &ip, const int port){/,/^}/{
-    /socket_->connect/i\
-    boost::asio::ip::tcp::resolver resolver(io_service_);\
-    boost::asio::ip::tcp::resolver::results_type endpoints = resolver.resolve("host.docker.internal", std::to_string(port));
     /socket_->connect/c\
+    boost::asio::ip::tcp::resolver resolver(io_service_);\
+    boost::asio::ip::tcp::resolver::results_type endpoints = resolver.resolve("host.docker.internal", std::to_string(port));\
     boost::asio::connect(*socket_, endpoints, error_);
 }' mjai_client.cpp
