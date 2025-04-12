@@ -25,12 +25,13 @@ USER ubuntu
 
 RUN mkdir build
 RUN git clone https://github.com/critter-mj/akochan.git
+
+COPY --chown=ubuntu patch.sh /opt/
+
 RUN cd ./akochan/ai_src && \
     make -f Makefile_Linux && \
     cd ../ && \
-    sed -i -e 's/boost::asio::io_service/boost::asio::io_context/' mjai_client.hpp && \
-    sed -i -e 's/boost::asio::ip::address::from_string/boost::asio::ip::make_address/' mjai_client.cpp && \
-    sed -i -e 's/boost::asio::buffer_cast<const char \*>(buffer\.data())/static_cast<const char *>(buffer.data().data())/' mjai_client.cpp && \
+    /opt/patch.sh && \
     make -f Makefile_Linux && \
     cp libai.so system.exe setup_match.json setup_mjai.json ../build && \
     cp -r params ../build
