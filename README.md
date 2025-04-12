@@ -1,8 +1,8 @@
 # akochan-docker
 
-A Docker environment for running [Akochan](https://github.com/critter-mj/akochan).
+Docker configurations for building and running [Akochan](https://github.com/critter-mj/akochan).
 
-This project provides a containerized environment for Akochan with the following features:
+This containerized environment offers the following features:
 
 - Automated build process and dependency management
 - Cross-platform support via Docker
