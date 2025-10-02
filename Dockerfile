@@ -24,7 +24,7 @@ WORKDIR /opt
 USER ubuntu
 
 RUN mkdir build
-RUN git clone https://github.com/critter-mj/akochan.git
+RUN git clone --depth 1 https://github.com/critter-mj/akochan.git
 
 COPY --chown=ubuntu patch.sh /opt/
 
